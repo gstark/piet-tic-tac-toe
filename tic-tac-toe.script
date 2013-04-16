@@ -1,26 +1,45 @@
 main()
 {
-   asm { @"I go first and I'm X" }
+   asm { @"If you want to go first enter 1, otherwise 0\r\n" }
+   human_first = 0;
+   asm { inn in pop add }
+
+   if (human_first == 0)
+   {
+     asm { @"I go first and I'm X\r\n" }
+   }
+   else
+   {
+     asm { @"I go second and I'm X\r\n" }
+   }
 
    board = 0;
+   exp = 0;
 
    while (1)
    {
-	   asm { @"\r\n\r\n\r\n" }
-	   move = get_computer_move(board);
+       // Computer goes first
+       if (human_first == 0)
+	   {
+	     asm { @"\r\n\r\n\r\n" }
+	     move = get_computer_move_going_first(board);
 
-	   asm { @"I move to: " }
-	   __outn(move);
-	   asm { @"\r\n\r\n" }
+	     asm { @"I move to: " }
+	     __outn(move);
+	     asm { @"\r\n\r\n" }
 
-	   exp = exponent(move);
-	   board = 2*exp + board;
-	   print_board(board);
+	     exp = exponent(move);
+	     board = 2*exp + board;
+	     print_board(board);
 
-       check_for_win(board);
+         check_for_win(board);
+	   }
+	   else
+	   {
+	     print_board(board);
+	   }
 
        invalid_move = 1;
-
 	   while (invalid_move == 1)
 	   {
          asm { @"Move: " }
@@ -48,6 +67,23 @@ main()
        }
 
 	   board = exp + board;
+
+       // Computer goes last
+       if (human_first == 1)
+	   {
+	     asm { @"\r\n\r\n\r\n" }
+	     move = get_computer_move_going_last(board);
+
+	     asm { @"I move to: " }
+	     __outn(move);
+	     asm { @"\r\n\r\n" }
+
+	     exp = exponent(move);
+	     board = 2*exp + board;
+	     print_board(board);
+
+         check_for_win(board);
+	   }
    }
 }
 
@@ -80,108 +116,117 @@ check_for_win(board)
   }
 }
 
-get_computer_move(move)
+get_computer_move_going_last(board)
+{
+  new_move = 99;
+
+
+
+  return new_move;
+}
+
+get_computer_move_going_first(board)
 {
   new_move = 0;
-  if (move == 0) { new_move =  0;}
-  if (move == 5) { new_move =  3;}
-  if (move == 68) { new_move =  4;}
-  if (move == 473) { new_move =  6;}
-  if (move == 959) { new_move =  5;}
-  if (move == 2417) { new_move =  5;}
-  if (move == 6791) { new_move =  5;}
-  if (move == 140) { new_move =  6;}
-  if (move == 302) { new_move =  4;}
-  if (move == 1193) { new_move =  8;}
-  if (move == 2651) { new_move =  2;}
-  if (move == 3398) { new_move =  8;}
-  if (move == 9230) { new_move =  6;}
-  if (move == 7025) { new_move =  6;}
-  if (move == 788) { new_move =  4;}
-  if (move == 3137) { new_move =  5;}
-  if (move == 7511) { new_move =  5;}
-  if (move == 2246) { new_move =  4;}
-  if (move == 8969) { new_move =  5;}
-  if (move == 6620) { new_move =  4;}
-  if (move == 11) { new_move =  3;}
-  if (move == 146) { new_move =  6;}
-  if (move == 308) { new_move =  6;}
-  if (move == 794) { new_move =  4;}
-  if (move == 1199) { new_move =  8;}
-  if (move == 3143) { new_move =  5;}
-  if (move == 7517) { new_move =  5;}
-  if (move == 2252) { new_move =  4;}
-  if (move == 2657) { new_move =  6;}
-  if (move == 8975) { new_move =  5;}
-  if (move == 6626) { new_move =  5;}
-  if (move == 7115) { new_move =  4;}
-  if (move == 7193) { new_move =  6;}
-  if (move == 7841) { new_move =  4;}
-  if (move == 9299) { new_move =  4;}
-  if (move == 29) { new_move =  1;}
-  if (move == 44) { new_move =  4;}
-  if (move == 449) { new_move =  7;}
-  if (move == 935) { new_move =  5;}
-  if (move == 3608) { new_move =  8;}
-  if (move == 7982) { new_move =  7;}
-  if (move == 2393) { new_move =  8;}
-  if (move == 6767) { new_move =  7;}
-  if (move == 116) { new_move =  2;}
-  if (move == 278) { new_move =  2;}
-  if (move == 764) { new_move =  2;}
-  if (move == 2222) { new_move =  2;}
-  if (move == 6596) { new_move =  2;}
-  if (move == 83) { new_move =  1;}
-  if (move == 98) { new_move =  6;}
-  if (move == 1583) { new_move =  5;}
-  if (move == 4256) { new_move =  8;}
-  if (move == 8630) { new_move =  7;}
-  if (move == 1799) { new_move =  3;}
-  if (move == 3743) { new_move =  3;}
-  if (move == 8117) { new_move =  3;}
-  if (move == 332) { new_move =  2;}
-  if (move == 818) { new_move =  2;}
-  if (move == 2276) { new_move =  2;}
-  if (move == 6650) { new_move =  2;}
-  if (move == 245) { new_move =  2;}
-  if (move == 266) { new_move =  4;}
-  if (move == 455) { new_move =  6;}
-  if (move == 1157) { new_move =  8;}
-  if (move == 2615) { new_move =  3;}
-  if (move == 6989) { new_move =  6;}
-  if (move == 290) { new_move =  1;}
-  if (move == 344) { new_move =  1;}
-  if (move == 992) { new_move =  1;}
-  if (move == 2450) { new_move =  1;}
-  if (move == 6824) { new_move =  1;}
-  if (move == 731) { new_move =  1;}
-  if (move == 746) { new_move =  4;}
-  if (move == 1151) { new_move =  7;}
-  if (move == 3095) { new_move =  8;}
-  if (move == 7469) { new_move =  7;}
-  if (move == 980) { new_move =  2;}
-  if (move == 2924) { new_move =  2;}
-  if (move == 7298) { new_move =  2;}
-  if (move == 2189) { new_move =  2;}
-  if (move == 2210) { new_move =  4;}
-  if (move == 2399) { new_move =  5;}
-  if (move == 3614) { new_move =  8;}
-  if (move == 9446) { new_move =  6;}
-  if (move == 3101) { new_move =  8;}
-  if (move == 8933) { new_move =  6;}
-  if (move == 2234) { new_move =  1;}
-  if (move == 2288) { new_move =  1;}
-  if (move == 2936) { new_move =  1;}
-  if (move == 8768) { new_move =  1;}
-  if (move == 6563) { new_move =  2;}
-  if (move == 6584) { new_move =  6;}
-  if (move == 8069) { new_move =  4;}
-  if (move == 8123) { new_move =  3;}
-  if (move == 8285) { new_move =  3;}
-  if (move == 10229) { new_move =  3;}
-  if (move == 6608) { new_move =  1;}
-  if (move == 6662) { new_move =  1;}
-  if (move == 7310) { new_move =  1;}
+  if (board == 0) { new_move =  0;}
+  if (board == 5) { new_move =  3;}
+  if (board == 68) { new_move =  4;}
+  if (board == 473) { new_move =  6;}
+  if (board == 959) { new_move =  5;}
+  if (board == 2417) { new_move =  5;}
+  if (board == 6791) { new_move =  5;}
+  if (board == 140) { new_move =  6;}
+  if (board == 302) { new_move =  4;}
+  if (board == 1193) { new_move =  8;}
+  if (board == 2651) { new_move =  2;}
+  if (board == 3398) { new_move =  8;}
+  if (board == 9230) { new_move =  6;}
+  if (board == 7025) { new_move =  6;}
+  if (board == 788) { new_move =  4;}
+  if (board == 3137) { new_move =  5;}
+  if (board == 7511) { new_move =  5;}
+  if (board == 2246) { new_move =  4;}
+  if (board == 8969) { new_move =  5;}
+  if (board == 6620) { new_move =  4;}
+  if (board == 11) { new_move =  3;}
+  if (board == 146) { new_move =  6;}
+  if (board == 308) { new_move =  6;}
+  if (board == 794) { new_move =  4;}
+  if (board == 1199) { new_move =  8;}
+  if (board == 3143) { new_move =  5;}
+  if (board == 7517) { new_move =  5;}
+  if (board == 2252) { new_move =  4;}
+  if (board == 2657) { new_move =  6;}
+  if (board == 8975) { new_move =  5;}
+  if (board == 6626) { new_move =  5;}
+  if (board == 7115) { new_move =  4;}
+  if (board == 7193) { new_move =  6;}
+  if (board == 7841) { new_move =  4;}
+  if (board == 9299) { new_move =  4;}
+  if (board == 29) { new_move =  1;}
+  if (board == 44) { new_move =  4;}
+  if (board == 449) { new_move =  7;}
+  if (board == 935) { new_move =  5;}
+  if (board == 3608) { new_move =  8;}
+  if (board == 7982) { new_move =  7;}
+  if (board == 2393) { new_move =  8;}
+  if (board == 6767) { new_move =  7;}
+  if (board == 116) { new_move =  2;}
+  if (board == 278) { new_move =  2;}
+  if (board == 764) { new_move =  2;}
+  if (board == 2222) { new_move =  2;}
+  if (board == 6596) { new_move =  2;}
+  if (board == 83) { new_move =  1;}
+  if (board == 98) { new_move =  6;}
+  if (board == 1583) { new_move =  5;}
+  if (board == 4256) { new_move =  8;}
+  if (board == 8630) { new_move =  7;}
+  if (board == 1799) { new_move =  3;}
+  if (board == 3743) { new_move =  3;}
+  if (board == 8117) { new_move =  3;}
+  if (board == 332) { new_move =  2;}
+  if (board == 818) { new_move =  2;}
+  if (board == 2276) { new_move =  2;}
+  if (board == 6650) { new_move =  2;}
+  if (board == 245) { new_move =  2;}
+  if (board == 266) { new_move =  4;}
+  if (board == 455) { new_move =  6;}
+  if (board == 1157) { new_move =  8;}
+  if (board == 2615) { new_move =  3;}
+  if (board == 6989) { new_move =  6;}
+  if (board == 290) { new_move =  1;}
+  if (board == 344) { new_move =  1;}
+  if (board == 992) { new_move =  1;}
+  if (board == 2450) { new_move =  1;}
+  if (board == 6824) { new_move =  1;}
+  if (board == 731) { new_move =  1;}
+  if (board == 746) { new_move =  4;}
+  if (board == 1151) { new_move =  7;}
+  if (board == 3095) { new_move =  8;}
+  if (board == 7469) { new_move =  7;}
+  if (board == 980) { new_move =  2;}
+  if (board == 2924) { new_move =  2;}
+  if (board == 7298) { new_move =  2;}
+  if (board == 2189) { new_move =  2;}
+  if (board == 2210) { new_move =  4;}
+  if (board == 2399) { new_move =  5;}
+  if (board == 3614) { new_move =  8;}
+  if (board == 9446) { new_move =  6;}
+  if (board == 3101) { new_move =  8;}
+  if (board == 8933) { new_move =  6;}
+  if (board == 2234) { new_move =  1;}
+  if (board == 2288) { new_move =  1;}
+  if (board == 2936) { new_move =  1;}
+  if (board == 8768) { new_move =  1;}
+  if (board == 6563) { new_move =  2;}
+  if (board == 6584) { new_move =  6;}
+  if (board == 8069) { new_move =  4;}
+  if (board == 8123) { new_move =  3;}
+  if (board == 8285) { new_move =  3;}
+  if (board == 10229) { new_move =  3;}
+  if (board == 6608) { new_move =  1;}
+  if (board == 6662) { new_move =  1;}
+  if (board == 7310) { new_move =  1;}
   return new_move;
 }
 
