@@ -1,0 +1,221 @@
+main()
+{
+   asm { @"I go first and I'm X" }
+
+   board = 0;
+
+   while (1)
+   {
+	   asm { @"\r\n\r\n\r\n" }
+	   move = get_computer_move(board);
+
+	   asm { @"I move to: " }
+	   __outn(move);
+	   asm { @"\r\n\r\n" }
+
+	   exp = exponent(move);
+	   board = 2*exp + board;
+	   print_board(board);
+
+       check_for_win(board);
+
+       invalid_move = 1;
+
+	   while (invalid_move == 1)
+	   {
+         asm { @"Move: " }
+         // tricky way of getting an int.
+	     // pushes a zero on the stack
+	     // reads a number and the CR
+	     // then pops the CR and then
+	     // adds our zero and our number
+	     // putting them back on the stack
+	     // where 'new_move' used to be
+	     new_move = 0;
+	     asm { inn in pop add }
+
+         move = new_move;
+	     exp = exponent(move);
+
+		 if (((board / exp) %3 != 0) || (move < 0) || (move > 8))
+		 {
+		   asm { @"ILLEGAL MOVE! Try again human!\r\n" }
+		 }
+		 else
+		 {
+		   invalid_move = 0;
+         }
+       }
+
+	   board = exp + board;
+   }
+}
+
+check_for_win(board)
+{
+  pos_0 = ((board/exponent(0))%3);
+  pos_1 = ((board/exponent(1))%3);
+  pos_2 = ((board/exponent(2))%3);
+  pos_3 = ((board/exponent(3))%3);
+  pos_4 = ((board/exponent(4)%3));
+  pos_5 = ((board/exponent(5))%3);
+  pos_6 = ((board/exponent(6))%3);
+  pos_7 = ((board/exponent(7))%3);
+  pos_8 = ((board/exponent(8))%3);
+
+  if ((pos_0 == 2 && pos_1 == 2 && pos_2 == 2) ||
+      (pos_3 == 2 && pos_4 == 2 && pos_5 == 2) ||
+      (pos_6 == 2 && pos_7 == 2 && pos_8 == 2) ||
+      (pos_0 == 2 && pos_3 == 2 && pos_6 == 2) ||
+      (pos_1 == 2 && pos_4 == 2 && pos_7 == 2) ||
+      (pos_2 == 2 && pos_5 == 2 && pos_8 == 2) ||
+      (pos_0 == 2 && pos_4 == 2 && pos_8 == 2) ||
+      (pos_2 == 2 && pos_4 == 2 && pos_6 == 2))
+  {
+    asm { @"**** I WIN! ****\r\n\r\n" }
+	while (1)
+	{
+
+	}
+  }
+}
+
+get_computer_move(move)
+{
+  new_move = 0;
+  if (move == 0) { new_move =  0;}
+  if (move == 5) { new_move =  3;}
+  if (move == 68) { new_move =  4;}
+  if (move == 473) { new_move =  6;}
+  if (move == 959) { new_move =  5;}
+  if (move == 2417) { new_move =  5;}
+  if (move == 6791) { new_move =  5;}
+  if (move == 140) { new_move =  6;}
+  if (move == 302) { new_move =  4;}
+  if (move == 1193) { new_move =  8;}
+  if (move == 2651) { new_move =  2;}
+  if (move == 3398) { new_move =  8;}
+  if (move == 9230) { new_move =  6;}
+  if (move == 7025) { new_move =  6;}
+  if (move == 788) { new_move =  4;}
+  if (move == 3137) { new_move =  5;}
+  if (move == 7511) { new_move =  5;}
+  if (move == 2246) { new_move =  4;}
+  if (move == 8969) { new_move =  5;}
+  if (move == 6620) { new_move =  4;}
+  if (move == 11) { new_move =  3;}
+  if (move == 146) { new_move =  6;}
+  if (move == 308) { new_move =  6;}
+  if (move == 794) { new_move =  4;}
+  if (move == 1199) { new_move =  8;}
+  if (move == 3143) { new_move =  5;}
+  if (move == 7517) { new_move =  5;}
+  if (move == 2252) { new_move =  4;}
+  if (move == 2657) { new_move =  6;}
+  if (move == 8975) { new_move =  5;}
+  if (move == 6626) { new_move =  5;}
+  if (move == 7115) { new_move =  4;}
+  if (move == 7193) { new_move =  6;}
+  if (move == 7841) { new_move =  4;}
+  if (move == 9299) { new_move =  4;}
+  if (move == 29) { new_move =  1;}
+  if (move == 44) { new_move =  4;}
+  if (move == 449) { new_move =  7;}
+  if (move == 935) { new_move =  5;}
+  if (move == 3608) { new_move =  8;}
+  if (move == 7982) { new_move =  7;}
+  if (move == 2393) { new_move =  8;}
+  if (move == 6767) { new_move =  7;}
+  if (move == 116) { new_move =  2;}
+  if (move == 278) { new_move =  2;}
+  if (move == 764) { new_move =  2;}
+  if (move == 2222) { new_move =  2;}
+  if (move == 6596) { new_move =  2;}
+  if (move == 83) { new_move =  1;}
+  if (move == 98) { new_move =  6;}
+  if (move == 1583) { new_move =  5;}
+  if (move == 4256) { new_move =  8;}
+  if (move == 8630) { new_move =  7;}
+  if (move == 1799) { new_move =  3;}
+  if (move == 3743) { new_move =  3;}
+  if (move == 8117) { new_move =  3;}
+  if (move == 332) { new_move =  2;}
+  if (move == 818) { new_move =  2;}
+  if (move == 2276) { new_move =  2;}
+  if (move == 6650) { new_move =  2;}
+  if (move == 245) { new_move =  2;}
+  if (move == 266) { new_move =  4;}
+  if (move == 455) { new_move =  6;}
+  if (move == 1157) { new_move =  8;}
+  if (move == 2615) { new_move =  3;}
+  if (move == 6989) { new_move =  6;}
+  if (move == 290) { new_move =  1;}
+  if (move == 344) { new_move =  1;}
+  if (move == 992) { new_move =  1;}
+  if (move == 2450) { new_move =  1;}
+  if (move == 6824) { new_move =  1;}
+  if (move == 731) { new_move =  1;}
+  if (move == 746) { new_move =  4;}
+  if (move == 1151) { new_move =  7;}
+  if (move == 3095) { new_move =  8;}
+  if (move == 7469) { new_move =  7;}
+  if (move == 980) { new_move =  2;}
+  if (move == 2924) { new_move =  2;}
+  if (move == 7298) { new_move =  2;}
+  if (move == 2189) { new_move =  2;}
+  if (move == 2210) { new_move =  4;}
+  if (move == 2399) { new_move =  5;}
+  if (move == 3614) { new_move =  8;}
+  if (move == 9446) { new_move =  6;}
+  if (move == 3101) { new_move =  8;}
+  if (move == 8933) { new_move =  6;}
+  if (move == 2234) { new_move =  1;}
+  if (move == 2288) { new_move =  1;}
+  if (move == 2936) { new_move =  1;}
+  if (move == 8768) { new_move =  1;}
+  if (move == 6563) { new_move =  2;}
+  if (move == 6584) { new_move =  6;}
+  if (move == 8069) { new_move =  4;}
+  if (move == 8123) { new_move =  3;}
+  if (move == 8285) { new_move =  3;}
+  if (move == 10229) { new_move =  3;}
+  if (move == 6608) { new_move =  1;}
+  if (move == 6662) { new_move =  1;}
+  if (move == 7310) { new_move =  1;}
+  return new_move;
+}
+
+print_board(board)
+{
+  print_piece((board/exponent(0))%3);
+  print_piece((board/exponent(1))%3);
+  print_piece((board/exponent(2))%3);
+  asm { @"\r\n" }
+  print_piece((board/exponent(3))%3);
+  print_piece((board/exponent(4)%3));
+  print_piece((board/exponent(5))%3);
+  asm { @"\r\n" }
+  print_piece((board/exponent(6))%3);
+  print_piece((board/exponent(7))%3);
+  print_piece((board/exponent(8))%3);
+  asm { @"\r\n" }
+}
+
+print_piece(piece)
+{
+  if (piece == 0) { asm { @"." } }
+  if (piece == 1) { asm { @"O" } }
+  if (piece == 2) { asm { @"X" } }
+}
+
+exponent(position)
+{
+  exp = 1;
+  for(i=0; i < position; i++)
+  {
+    exp = exp *3;
+  }
+
+  return exp;
+}
+
