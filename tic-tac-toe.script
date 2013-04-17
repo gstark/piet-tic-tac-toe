@@ -108,6 +108,7 @@ check_for_win(board)
       (pos_2 == 2 && pos_4 == 2 && pos_6 == 2))
   {
     asm { @"**** I WIN! ****\r\n\r\n" }
+    print_board(board);
     while (1)
     {
 
